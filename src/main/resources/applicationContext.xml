@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:component-scan base-package="com.lanou.spring.web.mvc.dao"/>
+    <context:component-scan base-package="com.lanou.spring.web.mvc.service"/>
+
+   <!--  <context:property-placeholder location="jdbc.properties"/>-->
+
+    <bean id = "dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="jdbc:mysql://localhost:3306/student?characterEncoding=utf8"></property>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="zjtzjy137381"></property>
+    </bean>
+
+    <bean class="org.springframework.jdbc.core.JdbcTemplate" autowire="byType"></bean>
+    <bean id="userDao" class="com.lanou.spring.web.mvc.dao.UseDaoImple" autowire="byType" ></bean>
+    <bean id="userService" class="com.lanou.spring.web.mvc.service.ServiceDaoImple">
+        <property name="useDao" ref="userDao" />
+        <!-- Servlet级别的上下文中可以使用root上下文配置的bean，
+            而root上下文中不能使用Servlet界别的上下文中配置的bean -->
+             <!--   <property name="helloConrtoller" ref="helloController" />-->
+    </bean>
+
+
+
+</beans>
